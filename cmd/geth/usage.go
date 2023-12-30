@@ -22,9 +22,9 @@ import (
 	"io"
 	"sort"
 
-	"github.com/ethereum/go-ethereum/cmd/utils"
-	"github.com/ethereum/go-ethereum/internal/debug"
-	"github.com/ethereum/go-ethereum/internal/flags"
+	"github.com/SMEs-Blockchain/zerocash/cmd/utils"
+	"github.com/SMEs-Blockchain/zerocash/internal/debug"
+	"github.com/SMEs-Blockchain/zerocash/internal/flags"
 	"gopkg.in/urfave/cli.v1"
 )
 
@@ -36,7 +36,7 @@ var quorumAccountFlagGroup = "QUORUM ACCOUNT"
 // AppHelpFlagGroups is the application flags, grouped by functionality.
 var AppHelpFlagGroups = []flags.FlagGroup{
 	{
-		Name: "ETHEREUM",
+		Name: "Ethereum - Zerocash",
 		Flags: []cli.Flag{
 			configFileFlag,
 			utils.DataDirFlag,
@@ -62,7 +62,7 @@ var AppHelpFlagGroups = []flags.FlagGroup{
 		},
 	},
 	{
-		Name: "LIGHT CLIENT",
+		Name: "Light Client",
 		Flags: []cli.Flag{
 			utils.LightServeFlag,
 			utils.LightIngressFlag,
@@ -76,14 +76,14 @@ var AppHelpFlagGroups = []flags.FlagGroup{
 		},
 	},
 	{
-		Name: "DEVELOPER CHAIN",
+		Name: "Developer Chain",
 		Flags: []cli.Flag{
 			utils.DeveloperFlag,
 			utils.DeveloperPeriodFlag,
 		},
 	},
 	{
-		Name: "ETHASH",
+		Name: "Ethash",
 		Flags: []cli.Flag{
 			utils.EthashCacheDirFlag,
 			utils.EthashCachesInMemoryFlag,
@@ -96,7 +96,7 @@ var AppHelpFlagGroups = []flags.FlagGroup{
 		},
 	},
 	{
-		Name: "TRANSACTION POOL",
+		Name: "Transaction Pool",
 		Flags: []cli.Flag{
 			utils.TxPoolLocalsFlag,
 			utils.TxPoolNoLocalsFlag,
@@ -112,7 +112,7 @@ var AppHelpFlagGroups = []flags.FlagGroup{
 		},
 	},
 	{
-		Name: "PERFORMANCE TUNING",
+		Name: "Performance Tuning",
 		Flags: []cli.Flag{
 			utils.CacheFlag,
 			utils.CacheDatabaseFlag,
@@ -126,7 +126,7 @@ var AppHelpFlagGroups = []flags.FlagGroup{
 		},
 	},
 	{
-		Name: "ACCOUNT",
+		Name: "Account",
 		Flags: []cli.Flag{
 			utils.UnlockedAccountFlag,
 			utils.PasswordFileFlag,
@@ -135,7 +135,7 @@ var AppHelpFlagGroups = []flags.FlagGroup{
 		},
 	},
 	{
-		Name: "API AND CONSOLE",
+		Name: "Api & Console",
 		Flags: []cli.Flag{
 			utils.IPCDisabledFlag,
 			utils.IPCPathFlag,
@@ -170,7 +170,7 @@ var AppHelpFlagGroups = []flags.FlagGroup{
 		},
 	},
 	{
-		Name: "NETWORKING",
+		Name: "Networking",
 		Flags: []cli.Flag{
 			utils.BootnodesFlag,
 			utils.DNSDiscoveryFlag,
@@ -186,7 +186,7 @@ var AppHelpFlagGroups = []flags.FlagGroup{
 		},
 	},
 	{
-		Name: "MINER",
+		Name: "Miner",
 		Flags: []cli.Flag{
 			utils.MiningEnabledFlag,
 			utils.MinerThreadsFlag,
@@ -202,7 +202,7 @@ var AppHelpFlagGroups = []flags.FlagGroup{
 		},
 	},
 	{
-		Name: "GAS PRICE ORACLE",
+		Name: "Gas Price Oracle",
 		Flags: []cli.Flag{
 			utils.GpoBlocksFlag,
 			utils.GpoPercentileFlag,
@@ -210,7 +210,7 @@ var AppHelpFlagGroups = []flags.FlagGroup{
 		},
 	},
 	{
-		Name: "VIRTUAL MACHINE",
+		Name: "Virtual Machine",
 		Flags: []cli.Flag{
 			utils.VMEnableDebugFlag,
 			utils.EVMInterpreterFlag,
@@ -220,18 +220,18 @@ var AppHelpFlagGroups = []flags.FlagGroup{
 		},
 	},
 	{
-		Name: "LOGGING AND DEBUGGING",
+		Name: "Logging & Debugging",
 		Flags: append([]cli.Flag{
 			utils.FakePoWFlag,
 			utils.NoCompactionFlag,
 		}, debug.Flags...),
 	},
 	{
-		Name:  "METRICS AND STATS",
+		Name:  "Metrics & Stats",
 		Flags: metricsFlags,
 	},
 	{
-		Name: "ALIASED (deprecated)",
+		Name: "Aliased (deprecated)",
 		Flags: []cli.Flag{
 			utils.NoUSBFlag,
 			utils.LegacyRPCEnabledFlag,
@@ -244,7 +244,7 @@ var AppHelpFlagGroups = []flags.FlagGroup{
 	},
 	// QUORUM
 	{
-		Name: "QUORUM",
+		Name: "ZerocashBFT",
 		Flags: []cli.Flag{
 			utils.QuorumImmutabilityThreshold,
 			utils.EnableNodePermissionFlag,
@@ -260,7 +260,7 @@ var AppHelpFlagGroups = []flags.FlagGroup{
 		},
 	},
 	{
-		Name: "QUORUM LIGHT CLIENT/SERVER",
+		Name: "Zerocash Client/Server",
 		Flags: []cli.Flag{
 			utils.QuorumLightServerFlag,
 			utils.QuorumLightServerP2PListenPortFlag,
@@ -289,7 +289,7 @@ var AppHelpFlagGroups = []flags.FlagGroup{
 		},
 	},
 	{
-		Name: "QUORUM PRIVATE TRANSACTION MANAGER",
+		Name: "Zerocash Private Transcation Manager",
 		Flags: []cli.Flag{
 			utils.QuorumPTMUnixSocketFlag,
 			utils.QuorumPTMUrlFlag,
@@ -312,7 +312,7 @@ var AppHelpFlagGroups = []flags.FlagGroup{
 		},
 	},
 	{
-		Name: "RAFT",
+		Name: "Raft",
 		Flags: []cli.Flag{
 			utils.RaftModeFlag,
 			utils.RaftBlockTimeFlag,
@@ -322,7 +322,7 @@ var AppHelpFlagGroups = []flags.FlagGroup{
 		},
 	},
 	{
-		Name: "ISTANBUL",
+		Name: "Istanbul",
 		Flags: []cli.Flag{
 			utils.IstanbulRequestTimeoutFlag,
 			utils.IstanbulBlockPeriodFlag,
@@ -330,7 +330,7 @@ var AppHelpFlagGroups = []flags.FlagGroup{
 	},
 	// END QUORUM
 	{
-		Name: "MISC",
+		Name: "Misc",
 		Flags: []cli.Flag{
 			utils.SnapshotFlag,
 			utils.BloomFilterSizeFlag,

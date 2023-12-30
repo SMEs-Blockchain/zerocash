@@ -35,49 +35,49 @@ import (
 	"text/template"
 	"time"
 
-	"github.com/ethereum/go-ethereum/accounts"
-	"github.com/ethereum/go-ethereum/accounts/keystore"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/fdlimit"
-	http2 "github.com/ethereum/go-ethereum/common/http"
-	"github.com/ethereum/go-ethereum/consensus"
-	"github.com/ethereum/go-ethereum/consensus/clique"
-	"github.com/ethereum/go-ethereum/consensus/ethash"
-	"github.com/ethereum/go-ethereum/consensus/istanbul"
-	istanbulBackend "github.com/ethereum/go-ethereum/consensus/istanbul/backend"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/rawdb"
-	"github.com/ethereum/go-ethereum/core/vm"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/eth"
-	"github.com/ethereum/go-ethereum/eth/downloader"
-	"github.com/ethereum/go-ethereum/eth/ethconfig"
-	"github.com/ethereum/go-ethereum/eth/gasprice"
-	"github.com/ethereum/go-ethereum/eth/tracers"
-	"github.com/ethereum/go-ethereum/ethclient"
-	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/ethereum/go-ethereum/ethstats"
-	"github.com/ethereum/go-ethereum/extension"
-	"github.com/ethereum/go-ethereum/graphql"
-	"github.com/ethereum/go-ethereum/internal/ethapi"
-	"github.com/ethereum/go-ethereum/internal/flags"
-	"github.com/ethereum/go-ethereum/les"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/metrics"
-	"github.com/ethereum/go-ethereum/metrics/exp"
-	"github.com/ethereum/go-ethereum/metrics/influxdb"
-	"github.com/ethereum/go-ethereum/miner"
-	"github.com/ethereum/go-ethereum/node"
-	"github.com/ethereum/go-ethereum/p2p"
-	"github.com/ethereum/go-ethereum/p2p/enode"
-	"github.com/ethereum/go-ethereum/p2p/nat"
-	"github.com/ethereum/go-ethereum/p2p/netutil"
-	"github.com/ethereum/go-ethereum/params"
-	"github.com/ethereum/go-ethereum/permission"
-	"github.com/ethereum/go-ethereum/permission/core/types"
-	"github.com/ethereum/go-ethereum/plugin"
-	"github.com/ethereum/go-ethereum/private"
-	"github.com/ethereum/go-ethereum/raft"
+	"github.com/SMEs-Blockchain/zerocash/accounts"
+	"github.com/SMEs-Blockchain/zerocash/accounts/keystore"
+	"github.com/SMEs-Blockchain/zerocash/common"
+	"github.com/SMEs-Blockchain/zerocash/common/fdlimit"
+	http2 "github.com/SMEs-Blockchain/zerocash/common/http"
+	"github.com/SMEs-Blockchain/zerocash/consensus"
+	"github.com/SMEs-Blockchain/zerocash/consensus/clique"
+	"github.com/SMEs-Blockchain/zerocash/consensus/ethash"
+	"github.com/SMEs-Blockchain/zerocash/consensus/istanbul"
+	istanbulBackend "github.com/SMEs-Blockchain/zerocash/consensus/istanbul/backend"
+	"github.com/SMEs-Blockchain/zerocash/core"
+	"github.com/SMEs-Blockchain/zerocash/core/rawdb"
+	"github.com/SMEs-Blockchain/zerocash/core/vm"
+	"github.com/SMEs-Blockchain/zerocash/crypto"
+	"github.com/SMEs-Blockchain/zerocash/eth"
+	"github.com/SMEs-Blockchain/zerocash/eth/downloader"
+	"github.com/SMEs-Blockchain/zerocash/eth/ethconfig"
+	"github.com/SMEs-Blockchain/zerocash/eth/gasprice"
+	"github.com/SMEs-Blockchain/zerocash/eth/tracers"
+	"github.com/SMEs-Blockchain/zerocash/ethclient"
+	"github.com/SMEs-Blockchain/zerocash/ethdb"
+	"github.com/SMEs-Blockchain/zerocash/ethstats"
+	"github.com/SMEs-Blockchain/zerocash/extension"
+	"github.com/SMEs-Blockchain/zerocash/graphql"
+	"github.com/SMEs-Blockchain/zerocash/internal/ethapi"
+	"github.com/SMEs-Blockchain/zerocash/internal/flags"
+	"github.com/SMEs-Blockchain/zerocash/les"
+	"github.com/SMEs-Blockchain/zerocash/log"
+	"github.com/SMEs-Blockchain/zerocash/metrics"
+	"github.com/SMEs-Blockchain/zerocash/metrics/exp"
+	"github.com/SMEs-Blockchain/zerocash/metrics/influxdb"
+	"github.com/SMEs-Blockchain/zerocash/miner"
+	"github.com/SMEs-Blockchain/zerocash/node"
+	"github.com/SMEs-Blockchain/zerocash/p2p"
+	"github.com/SMEs-Blockchain/zerocash/p2p/enode"
+	"github.com/SMEs-Blockchain/zerocash/p2p/nat"
+	"github.com/SMEs-Blockchain/zerocash/p2p/netutil"
+	"github.com/SMEs-Blockchain/zerocash/params"
+	"github.com/SMEs-Blockchain/zerocash/permission"
+	"github.com/SMEs-Blockchain/zerocash/permission/core/types"
+	"github.com/SMEs-Blockchain/zerocash/plugin"
+	"github.com/SMEs-Blockchain/zerocash/private"
+	"github.com/SMEs-Blockchain/zerocash/raft"
 	pcsclite "github.com/gballet/go-libpcsclite"
 	gopsutil "github.com/shirou/gopsutil/mem"
 	"gopkg.in/urfave/cli.v1"
@@ -536,7 +536,7 @@ var (
 		Usage: "Disables db compaction after import",
 	}
 
-	// Quorum
+	// Zerocash
 	// RPC Client Settings
 	RPCClientToken = cli.StringFlag{
 		Name:  "rpcclitoken",
@@ -971,7 +971,7 @@ var (
 	}
 	QuorumLightServerFlag = cli.BoolFlag{
 		Name:  "qlight.server",
-		Usage: "If enabled, the quorum light P2P protocol is started in addition to the other P2P protocols",
+		Usage: "If enabled, the Zerocash light P2P protocol is started in addition to the other P2P protocols",
 	}
 	QuorumLightServerP2PListenPortFlag = cli.IntFlag{
 		Name:  "qlight.server.p2p.port",
@@ -997,7 +997,7 @@ var (
 	}
 	QuorumLightClientFlag = cli.BoolFlag{
 		Name:  "qlight.client",
-		Usage: "If enabled, the quorum light client P2P protocol is started (only)",
+		Usage: "If enabled, the Zerocash light client P2P protocol is started (only)",
 	}
 	QuorumLightClientPSIFlag = cli.StringFlag{
 		Name:  "qlight.client.psi",
@@ -1017,23 +1017,23 @@ var (
 	}
 	QuorumLightClientRPCTLSFlag = cli.BoolFlag{
 		Name:  "qlight.client.rpc.tls",
-		Usage: "If enabled, the quorum light client RPC connection will be configured to use TLS",
+		Usage: "If enabled, the Zerocash light client RPC connection will be configured to use TLS",
 	}
 	QuorumLightClientRPCTLSInsecureSkipVerifyFlag = cli.BoolFlag{
 		Name:  "qlight.client.rpc.tls.insecureskipverify",
-		Usage: "If enabled, the quorum light client RPC connection skips TLS verification",
+		Usage: "If enabled, the Zerocash light client RPC connection skips TLS verification",
 	}
 	QuorumLightClientRPCTLSCACertFlag = cli.StringFlag{
 		Name:  "qlight.client.rpc.tls.cacert",
-		Usage: "The quorum light client RPC client certificate authority.",
+		Usage: "The Zerocash light client RPC client certificate authority.",
 	}
 	QuorumLightClientRPCTLSCertFlag = cli.StringFlag{
 		Name:  "qlight.client.rpc.tls.cert",
-		Usage: "The quorum light client RPC client certificate.",
+		Usage: "The Zerocash light client RPC client certificate.",
 	}
 	QuorumLightClientRPCTLSKeyFlag = cli.StringFlag{
 		Name:  "qlight.client.rpc.tls.key",
-		Usage: "The quorum light client RPC client certificate private key.",
+		Usage: "The Zerocash light client RPC client certificate private key.",
 	}
 	QuorumLightClientServerNodeFlag = cli.StringFlag{
 		Name:  "qlight.client.serverNode",
@@ -1045,7 +1045,7 @@ var (
 	}
 	QuorumLightTLSFlag = cli.BoolFlag{
 		Name:  "qlight.tls",
-		Usage: "If enabled, the quorum light client P2P protocol will use tls",
+		Usage: "If enabled, the Zerocash light client P2P protocol will use tls",
 	}
 	QuorumLightTLSCertFlag = cli.StringFlag{
 		Name:  "qlight.tls.cert",
@@ -2042,7 +2042,7 @@ func SetEthConfig(ctx *cli.Context, stack *node.Node, cfg *ethconfig.Config) {
 	// Quorum
 	err = setQuorumConfig(ctx, cfg)
 	if err != nil {
-		Fatalf("Quorum configuration has an error: %v", err)
+		Fatalf("Zerocash configuration has an error: %v", err)
 	}
 
 	if ctx.GlobalIsSet(SyncModeFlag.Name) {
@@ -2054,7 +2054,7 @@ func SetEthConfig(ctx *cli.Context, stack *node.Node, cfg *ethconfig.Config) {
 		Fatalf("Only the 'full' syncmode is supported for the qlight client.")
 	}
 	if private.IsQuorumPrivacyEnabled() && cfg.SyncMode != downloader.FullSync {
-		Fatalf("Only the 'full' syncmode is supported when quorum privacy is enabled.")
+		Fatalf("Only the 'full' syncmode is supported when Zerocash privacy is enabled.")
 	}
 	// End Quorum
 
@@ -2302,7 +2302,7 @@ func RegisterGraphQLService(stack *node.Node, backend ethapi.Backend, cfg node.C
 	}
 }
 
-// Quorum
+// Zerocash
 //
 // Register plugin manager as a service in geth
 func RegisterPluginService(stack *node.Node, cfg *node.Config, skipVerify bool, localVerify bool, publicKey string) {
@@ -2574,7 +2574,7 @@ func MakeChain(ctx *cli.Context, stack *node.Node, useExist bool) (chain *core.B
 		SnapshotLimit:       ethconfig.Defaults.SnapshotCache,
 		Preimages:           ctx.GlobalBool(CachePreimagesFlag.Name),
 	}
-	if true || cache.TrieDirtyDisabled && !cache.Preimages { // TODO: Quorum; force preimages for contract extension and dump of states compatibility, until a fix is found
+	if true || cache.TrieDirtyDisabled && !cache.Preimages { // TODO: Zerocash; force preimages for contract extension and dump of states compatibility, until a fix is found
 		cache.Preimages = true
 		log.Info("Enabling recording of key preimages since archive mode is used")
 	}
@@ -2589,13 +2589,13 @@ func MakeChain(ctx *cli.Context, stack *node.Node, useExist bool) (chain *core.B
 	}
 	vmcfg := vm.Config{EnablePreimageRecording: ctx.GlobalBool(VMEnableDebugFlag.Name)}
 
-	// Quorum
+	// Zerocash
 	var limit *uint64
 	if ctx.GlobalIsSet(TxLookupLimitFlag.Name) {
 		l := ctx.GlobalUint64(TxLookupLimitFlag.Name)
 		limit = &l
 	}
-	// End Quorum
+	// End Zerocash
 
 	// TODO(rjl493456442) disable snapshot generation/wiping if the chain is read only.
 	// Disable transaction indexing/unindexing by default.
